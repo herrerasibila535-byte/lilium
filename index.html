@@ -2,272 +2,154 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Lilium Rosa — Carta Victoriana</title>
-
+<title>Ritual de Tinta Viva</title>
 <style>
-html,body{
-  margin:0;
-  padding:0;
-  width:100%;
-  height:100%;
-  background:#07040d;
-  overflow:hidden;
-  font-family:"Georgia",serif;
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #050505;
+  overflow: hidden;
+  height: 100%;
+  font-family: "Garamond", serif;
 }
 
-/* ---------- ESCENAS ---------- */
-.scene{
-  position:absolute;
-  inset:0;
-  opacity:0;
-  transition:opacity 3s ease;
-}
-.scene.active{opacity:1}
-
-/* ---------- CANVAS ATMOSFÉRICO ---------- */
-canvas{
-  position:absolute;
-  inset:0;
+/* CONTENEDOR PRINCIPAL */
+#scene {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background:
+    radial-gradient(circle at center, #1a0f14 0%, #000 70%);
 }
 
-/* ---------- ESCENA 1 ---------- */
-.scene1{
-  background:radial-gradient(circle at top,#2b1640,#080410 70%);
+/* LILIUM */
+#lilium {
+  position: absolute;
+  inset: 0;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/32/Lilium_stargazer.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+  filter: saturate(1.3) blur(1px);
+  animation: pulse 8s infinite alternate;
 }
 
-.lilium{
-  position:absolute;
-  bottom:60px;
-  left:50%;
-  transform:translateX(-50%);
-  width:420px;
-  animation:breath 7s ease-in-out infinite;
-  filter:drop-shadow(0 0 35px #c87aa8);
+@keyframes pulse {
+  from { transform: scale(1); opacity: 0.22; }
+  to { transform: scale(1.03); opacity: 0.3; }
 }
 
-@keyframes breath{
-  0%,100%{transform:translateX(-50%) scale(1)}
-  50%{transform:translateX(-50%) scale(1.06)}
+/* PERGAMINO */
+#parchment {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60vmin;
+  height: 60vmin;
+  transform: translate(-50%, -50%) rotate(-2deg);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #2b0f14 0%,
+      #2b0f14 25%,
+      #f2e6d2 25%,
+      #f2e6d2 50%
+    );
+  box-shadow: 0 0 80px rgba(120, 0, 40, 0.5);
+  border: 2px solid #2b0f14;
 }
 
-/* ---------- MARIPOSAS ---------- */
-.butterfly{
-  position:absolute;
-  width:60px;
-  pointer-events:none;
+/* TEXTURA ENVEJECIDA */
+#parchment::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+  mix-blend-mode: multiply;
+  opacity: 0.4;
 }
 
-.purple{filter:hue-rotate(260deg) saturate(1.4)}
-.red{filter:hue-rotate(330deg) saturate(1.6)}
-
-/* ---------- PERGAMINO ---------- */
-.parchment{
-  position:absolute;
-  top:10%;
-  left:50%;
-  transform:translateX(-50%) scale(.9);
-  width:62%;
-  padding:42px;
-  background:#f3eadb;
-  border:10px solid #2a1723;
-  box-shadow:0 0 60px rgba(0,0,0,.85);
-  opacity:0;
-  animation:ritual 4s ease forwards;
-  animation-delay:5s;
+/* TINTA */
+.ink {
+  position: absolute;
+  color: #1a0005;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  opacity: 0.85;
+  filter: blur(0.3px);
+  animation: bleed 6s infinite alternate;
 }
 
-@keyframes ritual{
-  to{opacity:1; transform:translateX(-50%) scale(1)}
+@keyframes bleed {
+  from { text-shadow: 0 0 2px rgba(120,0,40,0.3); }
+  to   { text-shadow: 0 0 6px rgba(120,0,40,0.6); }
 }
 
-.parchment p{
-  color:#2a1723;
-  font-size:18px;
-  line-height:1.65;
-  text-align:center;
+/* SIMBOLOS */
+.symbol {
+  position: absolute;
+  font-size: 2.2rem;
+  opacity: 0.4;
+  transition: all 0.6s ease;
 }
 
-/* ---------- TRANSICIÓN ---------- */
-.transition{
-  position:absolute;
-  inset:0;
-  background:#0a0613;
-  opacity:0;
-  transition:opacity 3s ease;
+.symbol.active {
+  opacity: 1;
+  color: crimson;
+  filter: drop-shadow(0 0 10px crimson);
+  transform: scale(1.2) rotate(5deg);
 }
 
-/* ---------- ESCENA 2 ---------- */
-.scene2{
-  background:radial-gradient(circle,#1a0e12,#050203);
+/* MARIPOSAS */
+.butterfly {
+  position: absolute;
+  font-size: 1.8rem;
+  cursor: pointer;
+  animation: flutter 4s infinite alternate;
 }
 
-.candle{
-  position:absolute;
-  bottom:110px;
-  left:50%;
-  transform:translateX(-50%);
-  width:22px;
-  height:90px;
-  background:#e8d6b8;
-}
-
-.flame{
-  position:absolute;
-  top:-34px;
-  left:50%;
-  transform:translateX(-50%);
-  width:22px;
-  height:34px;
-  background:radial-gradient(circle,#ffdca0,#ff8c00);
-  border-radius:50%;
-  animation:flicker 1.4s infinite;
-}
-
-@keyframes flicker{
-  0%,100%{transform:translateX(-50%) scale(1)}
-  50%{transform:translateX(-50%) scale(.85)}
-}
-
-.text2{
-  position:absolute;
-  top:8%;
-  left:50%;
-  transform:translateX(-50%);
-  width:68%;
-  color:#e8d6b8;
-  font-size:16px;
-  line-height:1.65;
-  white-space:pre-wrap;
+@keyframes flutter {
+  from { transform: translateY(0) rotate(-5deg); }
+  to   { transform: translateY(-20px) rotate(5deg); }
 }
 </style>
 </head>
 
 <body>
+<div id="scene">
 
-<canvas id="fx"></canvas>
+  <div id="lilium"></div>
 
-<!-- ESCENA 1 -->
-<div class="scene scene1 active" id="scene1">
-  <img class="lilium" src="https://i.imgur.com/9wH4X2B.png">
+  <div id="parchment">
+    <div class="ink" style="top:15%; left:10%; width:80%;">
+      “Si no estoy allí, deja esta flor.<br>
+      La tinta sabrá recordarme.”
+    </div>
 
-  <img class="butterfly purple" src="https://i.imgur.com/8QfY6KZ.png">
-  <img class="butterfly red" src="https://i.imgur.com/8QfY6KZ.png">
-
-  <div class="parchment">
-    <p>
-Quizás yo no esté allí,<br>
-pero si escuchás Lilium,<br>
-sabé que voy a estar a tu lado<br>
-en cada palabra de la carta que te escribí,<br>
-mi amor.
-    </p>
+    <div class="symbol" style="top:10%; left:10%;">✝</div>
+    <div class="symbol" style="top:10%; right:10%;">🖤</div>
+    <div class="symbol" style="bottom:10%; left:10%;">☾</div>
+    <div class="symbol" style="bottom:10%; right:10%;">✶</div>
   </div>
-</div>
 
-<div class="transition" id="transition"></div>
+  <div class="butterfly" style="top:20%; left:30%; color:purple;">🦋</div>
+  <div class="butterfly" style="top:60%; left:65%; color:crimson;">🦋</div>
 
-<!-- ESCENA 2 -->
-<div class="scene scene2" id="scene2">
-  <div class="text2" id="typed"></div>
-  <div class="candle"><div class="flame"></div></div>
 </div>
 
 <script>
-/* ---------- CANVAS PARTÍCULAS / HUMO ---------- */
-const canvas=document.getElementById("fx");
-const ctx=canvas.getContext("2d");
-resize();
-window.addEventListener("resize",resize);
+const butterflies = document.querySelectorAll(".butterfly");
+const symbols = document.querySelectorAll(".symbol");
 
-let particles=[];
-for(let i=0;i<160;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    r:Math.random()*2+0.5,
-    v:Math.random()*0.4+0.1
+butterflies.forEach(butterfly => {
+  butterfly.addEventListener("mouseenter", () => {
+    symbols.forEach(sym => sym.classList.add("active"));
   });
-}
 
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="rgba(255,255,255,.25)";
-  particles.forEach(p=>{
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
-    p.y-=p.v;
-    if(p.y<0)p.y=canvas.height;
+  butterfly.addEventListener("mouseleave", () => {
+    symbols.forEach(sym => sym.classList.remove("active"));
   });
-  requestAnimationFrame(draw);
-}
-draw();
-
-function resize(){
-  canvas.width=innerWidth;
-  canvas.height=innerHeight;
-}
-
-/* ---------- MARIPOSAS ORGÁNICAS ---------- */
-document.querySelectorAll(".butterfly").forEach((b,i)=>{
-  let t=0;
-  setInterval(()=>{
-    t+=0.01;
-    b.style.left=(50+Math.sin(t+i)*40)+"vw";
-    b.style.top=(40+Math.cos(t*1.3+i)*25)+"vh";
-  },30);
 });
-
-/* ---------- TRANSICIÓN ---------- */
-setTimeout(()=>{
-  document.getElementById("transition").style.opacity=1;
-},9000);
-
-setTimeout(()=>{
-  document.getElementById("scene1").classList.remove("active");
-  document.getElementById("scene2").classList.add("active");
-  document.getElementById("transition").style.opacity=0;
-  typeText();
-},12000);
-
-/* ---------- TEXTO ESCRITO ---------- */
-const fullText=`mi cumpleañeros favorito, mi alma unida a la tuya,
-Inquiriste una vez —en el refugio del silencio— si existiría un alma capaz de ofrendar su aliento por la tuya.
-Yo callé. No por ignorancia, sino porque hay amores de una estirpe tan vasta que lacerarían los labios al intentar nombrarlos.
-Mis silencios anhelaban hacerse carne, verso y gesto irreversible.
-Hubiese abrazado el dolor ancestral que me habita desde antes del nombre, mil veces y en mil agonías,
-con tal de rescatar de tu rostro un mínimo pliegue de luz;
-no una alegría profana, sino ese alivio fugaz que se concede a los mártires.
-
-Te juzgas con el rigor de un inquisidor, como si hubieses nacido culpable de sentir demasiado.
-Te marcaron como exceso, como error que debe ser sofocado.
-Pero yo te avisté antes del juicio.
-Vi al infante de manos abiertas y corazón desmedido en un mundo que solo sabe amar lo que no late;
-un mundo que aplasta los lirios para luego llamarlos frágiles.
-
-Tu sensibilidad no es flaqueza: es una forma rarísima de coraje.
-Ardes sin volverte cruel.
-Eres ceniza que se niega a enfriarse.
-
-Mi paciencia no teme a la herida:
-eres una belleza real que se niega a ser domesticada.
-No vine a salvarte ni a borrar tus sombras,
-sino a permanecer frente a lo que arde, aunque no haya redención.
-Te elijo por tu lucidez herida.
-Mientras otros buscan refugio en lo intacto,
-yo hallo mi hogar en tus fragmentos:
-allí donde el incendio sigue vivo.`;
-
-function typeText(){
-  let i=0;
-  const target=document.getElementById("typed");
-  const interval=setInterval(()=>{
-    target.textContent+=fullText[i];
-    i++;
-    if(i>=fullText.length)clearInterval(interval);
-  },25);
-}
 </script>
-
 </body>
 </html>
