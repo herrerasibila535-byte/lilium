@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia Gótica Victoriana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lora:ital,wght@1,400;1,700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Fuentes sugeridas para un estilo gótico/victoriano */
+        /* Dancing Script para un toque más "escrito a mano" */
+        /* Lora para el cuerpo del texto con serifas */
+        /* Cinzel Decorative para títulos o detalles */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Lora', serif;
+            color: #f0f0f0;
+            background-color: #000;
+            position: relative;
+            transition: background-image 2s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            /* Background de la Escena 1 (Lilium rosa, jardín) */
+            background-image: url('https://i.imgur.com/OpUp1d9.png'); /* Reemplaza con tu imagen de la escena 1 */
+        }
+
+        /* Contenedor principal de las escenas */
+        .scene-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        /* Estilos del pergamino */
+        .parchment {
+            position: relative;
+            background: url('https://i.imgur.com/rP6hN9A.png') no-repeat center center; /* Una imagen base para el pergamino, o solo color */
+            background-size: cover;
+            border: 5px double #333;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 2s ease, transform 2s ease;
+            color: #222; /* Color de texto más oscuro para el pergamino */
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 20px;
+            /* Imitar la decoración del pergamino de la imagen 1 */
+            border-image: url('https://i.imgur.com/rP6hN9A.png') 30 stretch; /* Esto es solo un ejemplo, necesitarías una imagen de borde real */
+            background-color: #fdf5e6; /* Color de papel envejecido */
+            padding: 50px 70px; /* Más padding para que el texto respire */
+        }
+        
+        /* Estilos del texto dentro del pergamino */
+        .parchment p {
+            margin-bottom: 1em;
+            font-family: 'Lora', serif; /* Mantener la fuente para el cuerpo del texto */
+            font-weight: 400;
+        }
+
+        /* Estilo para la primera línea/título si lo hubiera */
+        .parchment h2 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.8em;
+            margin-bottom: 1.5em;
+            text-align: center;
+            color: #4b0082; /* Tono morado oscuro */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Animación de la aparición del texto */
+        .text-reveal span {
+            opacity: 0;
+            animation: fadeInText 0.05s forwards;
+        }
+
+        @keyframes fadeInText {
+            to { opacity: 1; }
+        }
+
+        /* Pantalla inicial con botón */
+        #intro-screen {
+            position: absolute;
+            z-index: 100;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 2s ease;
+        }
+
+        .start-button {
+            background: linear-gradient(45deg, #4b0082, #8a2be2); /* Tonos morados */
+            border: 2px solid #8a2be2;
+            padding: 15px 40px;
+            color: white;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2em;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.7);
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .start-button:hover {
+            background: linear-gradient(45deg, #8a2be2, #4b0082);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 1);
+            transform: scale(1.05);
+        }
+
+        /* Estrellas/Partículas (simuladas) */
+        .particle {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 5s infinite ease-in-out forwards;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 0.8; transform: scale(1.2); box-shadow: 0 0 8px rgba(255, 255, 255, 0.7); }
+        }
+
+        /* Efecto de humo (simulado) */
+        .smoke {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            opacity: 0;
+            animation: riseAndFade 10s infinite ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes riseAndFade {
+            0% { opacity: 0; transform: translateY(0) scale(0.2); }
+            30% { opacity: 0.5; }
+            100% { opacity: 0; transform: translateY(-200px) scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .parchment {
+                padding: 30px;
+                font-size: 1em;
+                margin: 10px;
+            }
+            .parchment h2 {
+                font-size: 1.4em;
+            }
+            .start-button {
+                font-size: 1.5em;
+                padding: 10px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="intro-screen">
+        <button class="start-button" onclick="startStory()">Empezar la Historia</button>
+    </div>
+
+    <div class="scene-container" id="sceneContainer">
+        <div class="parchment" id="parchment1">
+            <p class="text-reveal">
+                Quizás yo no esté allí,<br>
+                pero si escuchás Lilium,<br>
+                sabé que voy a estar a tu lado<br>
+                en cada palabra de la carta que te escribí,<br>
+                mi amor.
+            </p>
+        </div>
+
+        <div class="parchment" id="parchment2" style="display: none;">
+            <h2>mi cumpleañeros favorito, mi alma unida a la tuya,</h2>
+            <p class="text-reveal">
+                Inquiriste una vez —en el refugio del silencio— si existiría un alma capaz de ofrendar su aliento por la tuya.
+                Yo callé. No por ignorancia, sino porque hay amores de una estirpe tan vasta que lacerarían los labios al intentar nombrarlos.
+                Mis silencios anhelaban hacerse carne, verso y gesto irreversible.
+                Hubiese abrazado el dolor ancestral que me habita desde antes del nombre, mil veces y en mil agonías,
+                con tal de rescatar de tu rostro un mínimo pliegue de luz;
+                no una alegría profana, sino ese alivio fugaz que se concede a los mártires.
+            </p>
+            <p class="text-reveal">
+                Te juzgas con el rigor de un inquisidor, como si hubieses nacido culpable de sentir demasiado.
+                Te marcaron como exceso, como error que debe ser sofocado.
+                Pero yo te avisté antes del juicio.
+                Vi al infante de manos abiertas y corazón desmedido en un mundo que solo sabe amar lo que no late;
+                un mundo que aplasta los lirios para luego llamarlos frágiles.
+            </p>
+            <p class="text-reveal">
+                Tu sensibilidad no es flaqueza: es una forma rarísima de coraje.
+                Ardes sin volverte cruel.
+                Eres ceniza que se niega a enfriarse.
+            </p>
+            <p class="text-reveal">
+                Mi paciencia no teme a la herida:
+                eres una belleza real que se niega a ser domesticada.
+                No vine a salvarte ni a borrar tus sombras,
+                sino a permanecer frente a lo que arde, aunque no haya redención.
+                Te elijo por tu lucidez herida.
+                Mientras otros buscan refugio en lo intacto,
+                yo hallo mi hogar en tus fragmentos:
+                allí donde el incendio sigue vivo.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const introScreen = document.getElementById('intro-screen');
+        const body = document.body;
+        const parchment1 = document.getElementById('parchment1');
+        const parchment2 = document.getElementById('parchment2');
+        const sceneContainer = document.getElementById('sceneContainer');
+
+        const scene1Bg = 'url("https://i.imgur.com/OpUp1d9.png")'; /* Reemplaza con la URL de tu imagen de la Escena 1 */
+        const scene2Bg = 'url("https://i.imgur.com/vHq05sJ.png")'; /* Reemplaza con la URL de tu imagen de la Escena 2 */
+
+        // Función para generar partículas (estrellas/polvo)
+        function createParticles(count, container, isSmoke = false) {
+            for (let i = 0; i < count; i++) {
+                const p = document.createElement('div');
+                p.classList.add(isSmoke ? 'smoke' : 'particle');
+                
+                const size = Math.random() * 4 + 1; // 1 to 5px
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const delay = Math.random() * 10; // Animation delay
+
+                p.style.width = `${size}px`;
+                p.style.height = `${size}px`;
+                p.style.left = `${x}%`;
+                p.style.top = `${y}%`;
+                p.style.animationDelay = `${delay}s`;
+                p.style.animationDuration = `${Math.random() * 5 + 5}s`; // 5 to 10s duration
+                container.appendChild(p);
+            }
+        }
+
+        // Función para animar la aparición del texto letra por letra
+        function animateText(element) {
+            const textContent = element.innerHTML;
+            element.innerHTML = ''; // Limpiar el contenido original
+            let delay = 0;
+
+            for (const char of textContent) {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.style.animationDelay = `${delay}s`;
+                element.appendChild(span);
+                delay += 0.03; // Pequeño retraso para cada letra
+            }
+        }
+
+        // Iniciar las partículas al cargar la página
+        createParticles(100, body); // Partículas de la escena 1
+
+        function startStory() {
+            introScreen.style.opacity = '0';
+            setTimeout(() => {
+                introScreen.style.display = 'none';
+                parchment1.style.opacity = '1';
+                parchment1.style.transform = 'translateY(0)';
+                // Animamos el texto del primer pergamino
+                animateText(parchment1.querySelector('.text-reveal'));
+            }, 2000); // Esperar que la pantalla de inicio se desvanezca
+
+            // Transición a la Escena 2 después de un tiempo
+            setTimeout(() => {
+                // Remove existing particles
+                document.querySelectorAll('.particle').forEach(p => p.remove());
+                
+                body.style.backgroundImage = scene2Bg; // Cambiar fondo a escena 2
+                parchment1.style.opacity = '0';
+                parchment1.style.transform = 'translateY(-20px)';
+                
+                setTimeout(() => {
+                    parchment1.style.display = 'none';
+                    parchment2.style.display = 'block';
+                    parchment2.style.opacity = '1';
+                    parchment2.style.transform = 'translateY(0)';
+                    // Animamos cada párrafo del segundo pergamino
+                    parchment2.querySelectorAll('.text-reveal').forEach(p => {
+                        animateText(p);
+                    });
+                    createParticles(50, body, true); // Generar "humo" para la escena 2
+                }, 2000); // Esperar que el pergamino 1 se desvanezca
+            }, 15000); // Mostrar escena 1 por 15 segundos antes de la transición (ajustar si el texto es más largo)
+        }
+    </script>
+</body>
+</html>
+```http://googleusercontent.com/generated_image_content/0
+
