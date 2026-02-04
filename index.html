@@ -1,263 +1,124 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Ti</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lora:ital@1&display=swap');
+<meta charset="UTF-8">
+<title>Historia Nocturna</title>
+<style>
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:'Georgia',serif;
+  background:#0b1530;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+.scene{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transition:opacity 2s ease;
+}
 
-        body {
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Lora', serif;
-            color: white;
-            position: relative;
-        }
+.scene.active{opacity:1}
 
-        /* --- Estrellas de fondo --- */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
+.stars{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(white 1px, transparent 1px);
+  background-size:3px 3px,5px 5px;
+  animation:twinkle 6s infinite alternate;
+}
 
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: twinkle var(--duration) infinite ease-in-out;
-        }
+@keyframes twinkle{
+  from{opacity:.4}
+  to{opacity:.8}
+}
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 10px white; }
-        }
+.moon{
+  position:absolute;
+  top:60px;
+  left:80px;
+  width:70px;
+  height:70px;
+  background:#f2f2f2;
+  border-radius:50%;
+  box-shadow:0 0 25px #fff;
+}
 
-        /* --- La Luna --- */
-        .moon {
-            position: absolute;
-            top: 50px;
-            left: 50px;
-            width: 80px;
-            height: 80px;
-            background: #fdfdfd;
-            border-radius: 50%;
-            box-shadow: 0 0 40px #ffffff, 0 0 80px #ffffff;
-            z-index: 1;
-        }
+.text{
+  color:#cfd8ff;
+  font-size:32px;
+  letter-spacing:2px;
+  text-shadow:0 0 15px rgba(180,200,255,.7);
+  animation:fadeText 3s ease;
+}
 
-        /* --- Pantalla Inicial (Botón) --- */
-        #intro-screen {
-            position: absolute;
-            z-index: 10;
-            text-align: center;
-            transition: opacity 1s ease;
-        }
+@keyframes fadeText{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
-        .heart-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 15px 40px;
-            color: white;
-            font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 15px rgba(0, 162, 255, 0.5);
-            transition: all 0.3s ease;
-            text-shadow: 0 0 5px #fff;
-        }
+.flowers{
+  position:absolute;
+  bottom:50px;
+  right:120px;
+  width:220px;
+  animation:float 6s ease-in-out infinite;
+}
 
-        .heart-btn:hover {
-            background: rgba(0, 162, 255, 0.2);
-            box-shadow: 0 0 30px rgba(0, 162, 255, 0.8);
-            transform: scale(1.1);
-        }
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+}
 
-        /* --- Contenido Principal (Oculto al inicio) --- */
-        .main-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 50px;
-            z-index: 5;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 2s ease;
-            max-width: 1200px;
-            width: 90%;
-        }
+.butterfly{
+  position:absolute;
+  width:40px;
+  animation:fly 12s linear infinite;
+}
 
-        /* Texto del poema */
-        .poem-container {
-            flex: 1;
-            text-align: left;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-
-        .poem-text p {
-            margin-bottom: 15px;
-            opacity: 0; /* Para animación de entrada */
-            animation: textFadeIn 1s forwards;
-        }
-
-        /* Imagen de flores */
-        .flower-container {
-            flex: 1;
-            position: relative;
-            display: flex;
-            justify-content: center;
-        }
-
-        .flower-img {
-            width: 100%;
-            max-width: 450px;
-            /* Efecto de resplandor azul como en la foto */
-            filter: drop-shadow(0 0 20px rgba(0, 183, 255, 0.8));
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Mariposas */
-        .butterfly {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-size: cover;
-            /* Usamos un emoji o imagen SVG para la mariposa */
-            font-size: 25px; 
-            color: #4db8ff;
-            text-shadow: 0 0 10px #00aaff;
-            animation: flutter 10s infinite linear;
-            pointer-events: none;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes textFadeIn {
-            to { opacity: 1; }
-        }
-
-        /* Responsive para móviles */
-        @media (max-width: 768px) {
-            .main-content {
-                flex-direction: column-reverse;
-                text-align: center;
-            }
-            .poem-container {
-                text-align: center;
-                font-size: 0.9rem;
-            }
-            .flower-img {
-                max-width: 250px;
-            }
-            .moon {
-                width: 50px;
-                height: 50px;
-                top: 20px;
-                left: 20px;
-            }
-        }
-    </style>
+@keyframes fly{
+  from{transform:translateX(-50px) translateY(0)}
+  to{transform:translateX(110vw) translateY(-120px)}
+}
+</style>
 </head>
+
 <body>
 
-    <div class="stars" id="starsContainer"></div>
+<!-- ESCENA 1 -->
+<div class="scene active" id="scene1">
+  <div class="stars"></div>
+  <div class="moon"></div>
+  <div class="text">I love you</div>
+</div>
 
-    <div class="moon"></div>
+<!-- ESCENA 2 -->
+<div class="scene" id="scene2">
+  <div class="stars"></div>
+  <div class="moon"></div>
+  <div class="text" style="font-size:18px; position:absolute; left:90px; top:160px;">
+    Y si tuviera la posibilidad<br>de volver a enamorarme de ti
+  </div>
+  <img class="flowers" src="https://i.imgur.com/YQ9QZQJ.png">
+</div>
 
-    <div id="intro-screen">
-        <button class="heart-btn" onclick="startAnimation()">I love you 💙</button>
-    </div>
+<img class="butterfly" src="https://i.imgur.com/8QfY6KZ.png" style="top:200px; animation-delay:0s">
+<img class="butterfly" src="https://i.imgur.com/8QfY6KZ.png" style="top:350px; animation-delay:4s">
 
-    <div class="main-content" id="mainContent">
-        <div class="poem-container">
-            <div class="poem-text">
-                <p>Y si tuviera la posibilidad de volver</p>
-                <p>a enamorarme de ti como aquella primera vez</p>
-                <p>lo haría sin pensarlo dos veces, lo haría con la misma</p>
-                <p>certeza de que tú eras mi destino</p>
-                <p>porque hay cosas en la vida que no se explican</p>
-                <p>solo se sienten</p>
-                <p>y lo nuestro fue eso</p>
-                <p>un impulso del alma</p>
-                <p>una casualidad vestida de eternidad</p>
-                <p>cada recuerdo tuyo es como una chispa</p>
-                <p>que me recuerda quién era antes de perderme.</p>
-            </div>
-        </div>
-        
-        <div class="flower-container">
-            <img src="https://i.imgur.com/OpUp1d9.png" alt="Flores Azules" class="flower-img">
-            
-            <div class="butterfly" style="top: 20%; left: 10%; animation-delay: 0s;">🦋</div>
-            <div class="butterfly" style="top: 50%; right: 10%; animation-delay: 2s;">🦋</div>
-            <div class="butterfly" style="top: 10%; right: 30%; animation-delay: 4s;">🦋</div>
-        </div>
-    </div>
+<script>
+setTimeout(()=>{
+  document.getElementById('scene1').classList.remove('active')
+  document.getElementById('scene2').classList.add('active')
+},5000)
+</script>
 
-    <script>
-        // 1. Generar Estrellas
-        const starsContainer = document.getElementById('starsContainer');
-        const starCount = 100;
-
-        for (let i = 0; i < starCount; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            
-            // Posición aleatoria
-            const x = Math.random() * 100;
-            const y = Math.random() * 100;
-            // Tamaño aleatorio
-            const size = Math.random() * 3;
-            // Duración de parpadeo aleatoria
-            const duration = Math.random() * 3 + 2;
-
-            star.style.left = `${x}%`;
-            star.style.top = `${y}%`;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.setProperty('--duration', `${duration}s`);
-
-            starsContainer.appendChild(star);
-        }
-
-        // 2. Función para iniciar la animación al hacer clic
-        function startAnimation() {
-            const intro = document.getElementById('intro-screen');
-            const main = document.getElementById('mainContent');
-            
-            // Ocultar botón suavemente
-            intro.style.opacity = '0';
-            setTimeout(() => {
-                intro.style.display = 'none';
-                
-                // Mostrar contenido
-                main.style.opacity = '1';
-                main.style.transform = 'translateY(0)';
-            }, 1000);
-        }
-    </script>
 </body>
 </html>
