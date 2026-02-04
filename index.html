@@ -3,13 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historia Gótica Victoriana</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lora:ital,wght@1,400;1,700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+    <title>Para Ti</title>
     <style>
-        /* Fuentes sugeridas para un estilo gótico/victoriano */
-        /* Dancing Script para un toque más "escrito a mano" */
-        /* Lora para el cuerpo del texto con serifas */
-        /* Cinzel Decorative para títulos o detalles */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lora:ital@1&display=swap');
 
         * {
             margin: 0;
@@ -18,305 +14,250 @@
         }
 
         body {
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
             height: 100vh;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Lora', serif;
-            color: #f0f0f0;
-            background-color: #000;
-            position: relative;
-            transition: background-image 2s ease-in-out;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            
-            /* Background de la Escena 1 (Lilium rosa, jardín) */
-            background-image: url('https://i.imgur.com/OpUp1d9.png'); /* Reemplaza con tu imagen de la escena 1 */
-        }
-
-        /* Contenedor principal de las escenas */
-        .scene-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-        }
-
-        /* Estilos del pergamino */
-        .parchment {
-            position: relative;
-            background: url('https://i.imgur.com/rP6hN9A.png') no-repeat center center; /* Una imagen base para el pergamino, o solo color */
-            background-size: cover;
-            border: 5px double #333;
-            padding: 40px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            text-align: left;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 2s ease, transform 2s ease;
-            color: #222; /* Color de texto más oscuro para el pergamino */
-            font-size: 1.1em;
-            line-height: 1.6;
-            margin: 20px;
-            /* Imitar la decoración del pergamino de la imagen 1 */
-            border-image: url('https://i.imgur.com/rP6hN9A.png') 30 stretch; /* Esto es solo un ejemplo, necesitarías una imagen de borde real */
-            background-color: #fdf5e6; /* Color de papel envejecido */
-            padding: 50px 70px; /* Más padding para que el texto respire */
-        }
-        
-        /* Estilos del texto dentro del pergamino */
-        .parchment p {
-            margin-bottom: 1em;
-            font-family: 'Lora', serif; /* Mantener la fuente para el cuerpo del texto */
-            font-weight: 400;
-        }
-
-        /* Estilo para la primera línea/título si lo hubiera */
-        .parchment h2 {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: 1.8em;
-            margin-bottom: 1.5em;
-            text-align: center;
-            color: #4b0082; /* Tono morado oscuro */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        /* Animación de la aparición del texto */
-        .text-reveal span {
-            opacity: 0;
-            animation: fadeInText 0.05s forwards;
-        }
-
-        @keyframes fadeInText {
-            to { opacity: 1; }
-        }
-
-        /* Pantalla inicial con botón */
-        #intro-screen {
-            position: absolute;
-            z-index: 100;
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.7);
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 2s ease;
-        }
-
-        .start-button {
-            background: linear-gradient(45deg, #4b0082, #8a2be2); /* Tonos morados */
-            border: 2px solid #8a2be2;
-            padding: 15px 40px;
             color: white;
-            font-family: 'Cinzel Decorative', serif;
-            font-size: 2em;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.7);
-            transition: all 0.3s ease;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            position: relative;
         }
 
-        .start-button:hover {
-            background: linear-gradient(45deg, #8a2be2, #4b0082);
-            box-shadow: 0 0 30px rgba(138, 43, 226, 1);
-            transform: scale(1.05);
-        }
-
-        /* Estrellas/Partículas (simuladas) */
-        .particle {
-            position: absolute;
-            background: #fff;
-            border-radius: 50%;
-            opacity: 0;
-            animation: twinkle 5s infinite ease-in-out forwards;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 0.8; transform: scale(1.2); box-shadow: 0 0 8px rgba(255, 255, 255, 0.7); }
-        }
-
-        /* Efecto de humo (simulado) */
-        .smoke {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            opacity: 0;
-            animation: riseAndFade 10s infinite ease-out;
+        /* --- Estrellas de fondo --- */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
             pointer-events: none;
         }
 
-        @keyframes riseAndFade {
-            0% { opacity: 0; transform: translateY(0) scale(0.2); }
-            30% { opacity: 0.5; }
-            100% { opacity: 0; transform: translateY(-200px) scale(1); }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle var(--duration) infinite ease-in-out;
         }
 
-        /* Responsive */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 10px white; }
+        }
+
+        /* --- La Luna --- */
+        .moon {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 80px;
+            height: 80px;
+            background: #fdfdfd;
+            border-radius: 50%;
+            box-shadow: 0 0 40px #ffffff, 0 0 80px #ffffff;
+            z-index: 1;
+        }
+
+        /* --- Pantalla Inicial (Botón) --- */
+        #intro-screen {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            transition: opacity 1s ease;
+        }
+
+        .heart-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 40px;
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(0, 162, 255, 0.5);
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        .heart-btn:hover {
+            background: rgba(0, 162, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 162, 255, 0.8);
+            transform: scale(1.1);
+        }
+
+        /* --- Contenido Principal (Oculto al inicio) --- */
+        .main-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            z-index: 5;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 2s ease;
+            max-width: 1200px;
+            width: 90%;
+        }
+
+        /* Texto del poema */
+        .poem-container {
+            flex: 1;
+            text-align: left;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .poem-text p {
+            margin-bottom: 15px;
+            opacity: 0; /* Para animación de entrada */
+            animation: textFadeIn 1s forwards;
+        }
+
+        /* Imagen de flores */
+        .flower-container {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .flower-img {
+            width: 100%;
+            max-width: 450px;
+            /* Efecto de resplandor azul como en la foto */
+            filter: drop-shadow(0 0 20px rgba(0, 183, 255, 0.8));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Mariposas */
+        .butterfly {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-size: cover;
+            /* Usamos un emoji o imagen SVG para la mariposa */
+            font-size: 25px; 
+            color: #4db8ff;
+            text-shadow: 0 0 10px #00aaff;
+            animation: flutter 10s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes textFadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Responsive para móviles */
         @media (max-width: 768px) {
-            .parchment {
-                padding: 30px;
-                font-size: 1em;
-                margin: 10px;
+            .main-content {
+                flex-direction: column-reverse;
+                text-align: center;
             }
-            .parchment h2 {
-                font-size: 1.4em;
+            .poem-container {
+                text-align: center;
+                font-size: 0.9rem;
             }
-            .start-button {
-                font-size: 1.5em;
-                padding: 10px 25px;
+            .flower-img {
+                max-width: 250px;
+            }
+            .moon {
+                width: 50px;
+                height: 50px;
+                top: 20px;
+                left: 20px;
             }
         }
     </style>
 </head>
 <body>
 
+    <div class="stars" id="starsContainer"></div>
+
+    <div class="moon"></div>
+
     <div id="intro-screen">
-        <button class="start-button" onclick="startStory()">Empezar la Historia</button>
+        <button class="heart-btn" onclick="startAnimation()">I love you 💙</button>
     </div>
 
-    <div class="scene-container" id="sceneContainer">
-        <div class="parchment" id="parchment1">
-            <p class="text-reveal">
-                Quizás yo no esté allí,<br>
-                pero si escuchás Lilium,<br>
-                sabé que voy a estar a tu lado<br>
-                en cada palabra de la carta que te escribí,<br>
-                mi amor.
-            </p>
+    <div class="main-content" id="mainContent">
+        <div class="poem-container">
+            <div class="poem-text">
+                <p>Y si tuviera la posibilidad de volver</p>
+                <p>a enamorarme de ti como aquella primera vez</p>
+                <p>lo haría sin pensarlo dos veces, lo haría con la misma</p>
+                <p>certeza de que tú eras mi destino</p>
+                <p>porque hay cosas en la vida que no se explican</p>
+                <p>solo se sienten</p>
+                <p>y lo nuestro fue eso</p>
+                <p>un impulso del alma</p>
+                <p>una casualidad vestida de eternidad</p>
+                <p>cada recuerdo tuyo es como una chispa</p>
+                <p>que me recuerda quién era antes de perderme.</p>
+            </div>
         </div>
-
-        <div class="parchment" id="parchment2" style="display: none;">
-            <h2>mi cumpleañeros favorito, mi alma unida a la tuya,</h2>
-            <p class="text-reveal">
-                Inquiriste una vez —en el refugio del silencio— si existiría un alma capaz de ofrendar su aliento por la tuya.
-                Yo callé. No por ignorancia, sino porque hay amores de una estirpe tan vasta que lacerarían los labios al intentar nombrarlos.
-                Mis silencios anhelaban hacerse carne, verso y gesto irreversible.
-                Hubiese abrazado el dolor ancestral que me habita desde antes del nombre, mil veces y en mil agonías,
-                con tal de rescatar de tu rostro un mínimo pliegue de luz;
-                no una alegría profana, sino ese alivio fugaz que se concede a los mártires.
-            </p>
-            <p class="text-reveal">
-                Te juzgas con el rigor de un inquisidor, como si hubieses nacido culpable de sentir demasiado.
-                Te marcaron como exceso, como error que debe ser sofocado.
-                Pero yo te avisté antes del juicio.
-                Vi al infante de manos abiertas y corazón desmedido en un mundo que solo sabe amar lo que no late;
-                un mundo que aplasta los lirios para luego llamarlos frágiles.
-            </p>
-            <p class="text-reveal">
-                Tu sensibilidad no es flaqueza: es una forma rarísima de coraje.
-                Ardes sin volverte cruel.
-                Eres ceniza que se niega a enfriarse.
-            </p>
-            <p class="text-reveal">
-                Mi paciencia no teme a la herida:
-                eres una belleza real que se niega a ser domesticada.
-                No vine a salvarte ni a borrar tus sombras,
-                sino a permanecer frente a lo que arde, aunque no haya redención.
-                Te elijo por tu lucidez herida.
-                Mientras otros buscan refugio en lo intacto,
-                yo hallo mi hogar en tus fragmentos:
-                allí donde el incendio sigue vivo.
-            </p>
+        
+        <div class="flower-container">
+            <img src="https://i.imgur.com/OpUp1d9.png" alt="Flores Azules" class="flower-img">
+            
+            <div class="butterfly" style="top: 20%; left: 10%; animation-delay: 0s;">🦋</div>
+            <div class="butterfly" style="top: 50%; right: 10%; animation-delay: 2s;">🦋</div>
+            <div class="butterfly" style="top: 10%; right: 30%; animation-delay: 4s;">🦋</div>
         </div>
     </div>
 
     <script>
-        const introScreen = document.getElementById('intro-screen');
-        const body = document.body;
-        const parchment1 = document.getElementById('parchment1');
-        const parchment2 = document.getElementById('parchment2');
-        const sceneContainer = document.getElementById('sceneContainer');
+        // 1. Generar Estrellas
+        const starsContainer = document.getElementById('starsContainer');
+        const starCount = 100;
 
-        const scene1Bg = 'url("https://i.imgur.com/OpUp1d9.png")'; /* Reemplaza con la URL de tu imagen de la Escena 1 */
-        const scene2Bg = 'url("https://i.imgur.com/vHq05sJ.png")'; /* Reemplaza con la URL de tu imagen de la Escena 2 */
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            // Posición aleatoria
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            // Tamaño aleatorio
+            const size = Math.random() * 3;
+            // Duración de parpadeo aleatoria
+            const duration = Math.random() * 3 + 2;
 
-        // Función para generar partículas (estrellas/polvo)
-        function createParticles(count, container, isSmoke = false) {
-            for (let i = 0; i < count; i++) {
-                const p = document.createElement('div');
-                p.classList.add(isSmoke ? 'smoke' : 'particle');
-                
-                const size = Math.random() * 4 + 1; // 1 to 5px
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const delay = Math.random() * 10; // Animation delay
+            star.style.left = `${x}%`;
+            star.style.top = `${y}%`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.setProperty('--duration', `${duration}s`);
 
-                p.style.width = `${size}px`;
-                p.style.height = `${size}px`;
-                p.style.left = `${x}%`;
-                p.style.top = `${y}%`;
-                p.style.animationDelay = `${delay}s`;
-                p.style.animationDuration = `${Math.random() * 5 + 5}s`; // 5 to 10s duration
-                container.appendChild(p);
-            }
+            starsContainer.appendChild(star);
         }
 
-        // Función para animar la aparición del texto letra por letra
-        function animateText(element) {
-            const textContent = element.innerHTML;
-            element.innerHTML = ''; // Limpiar el contenido original
-            let delay = 0;
-
-            for (const char of textContent) {
-                const span = document.createElement('span');
-                span.textContent = char;
-                span.style.animationDelay = `${delay}s`;
-                element.appendChild(span);
-                delay += 0.03; // Pequeño retraso para cada letra
-            }
-        }
-
-        // Iniciar las partículas al cargar la página
-        createParticles(100, body); // Partículas de la escena 1
-
-        function startStory() {
-            introScreen.style.opacity = '0';
+        // 2. Función para iniciar la animación al hacer clic
+        function startAnimation() {
+            const intro = document.getElementById('intro-screen');
+            const main = document.getElementById('mainContent');
+            
+            // Ocultar botón suavemente
+            intro.style.opacity = '0';
             setTimeout(() => {
-                introScreen.style.display = 'none';
-                parchment1.style.opacity = '1';
-                parchment1.style.transform = 'translateY(0)';
-                // Animamos el texto del primer pergamino
-                animateText(parchment1.querySelector('.text-reveal'));
-            }, 2000); // Esperar que la pantalla de inicio se desvanezca
-
-            // Transición a la Escena 2 después de un tiempo
-            setTimeout(() => {
-                // Remove existing particles
-                document.querySelectorAll('.particle').forEach(p => p.remove());
+                intro.style.display = 'none';
                 
-                body.style.backgroundImage = scene2Bg; // Cambiar fondo a escena 2
-                parchment1.style.opacity = '0';
-                parchment1.style.transform = 'translateY(-20px)';
-                
-                setTimeout(() => {
-                    parchment1.style.display = 'none';
-                    parchment2.style.display = 'block';
-                    parchment2.style.opacity = '1';
-                    parchment2.style.transform = 'translateY(0)';
-                    // Animamos cada párrafo del segundo pergamino
-                    parchment2.querySelectorAll('.text-reveal').forEach(p => {
-                        animateText(p);
-                    });
-                    createParticles(50, body, true); // Generar "humo" para la escena 2
-                }, 2000); // Esperar que el pergamino 1 se desvanezca
-            }, 15000); // Mostrar escena 1 por 15 segundos antes de la transición (ajustar si el texto es más largo)
+                // Mostrar contenido
+                main.style.opacity = '1';
+                main.style.transform = 'translateY(0)';
+            }, 1000);
         }
     </script>
 </body>
 </html>
-```http://googleusercontent.com/generated_image_content/0
-
